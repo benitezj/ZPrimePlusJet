@@ -100,9 +100,13 @@ def main(options, args):
         if tag not in ['pass', 'fail']:
             tag = plot.split('_')[-2] + '_' + plot.split('_')[-1]  # 'pass_systematicName', 'pass_systmaticName', etc.
             
-        name = '%s_%s' % (options.process, tag)
-        hall[name] = getattr(container, plot)
-        hall[name].SetName(name)
+        if(options.process == ''):
+            name = '%s' % ( tag)
+        else:
+            name = '%s_%s' % (options.process, tag)
+
+        hall[plot] = getattr(container, plot)
+        hall[plot].SetName(name)
         #print hall[name].GetName()
 
 
