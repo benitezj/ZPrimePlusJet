@@ -1,7 +1,7 @@
 
 ## Set these options before running 
-TEST=0  ## 0= all samples,  1= only run one signal sample
-SUBMIT=1 ## 0 : only print command, 1 : condor submission, 2 : run in interactive/local machine
+TEST=1  ## 0= all samples,  1= only run one signal sample
+SUBMIT=0 ## 0 : only print command, 1 : condor submission, 2 : run in interactive/local machine
 EOSOUTPUTDIR=/store/user/benitezj/ggHbb/limits/2017_b13_TrigMuIdIso  # where the histograms will be saved from condor job
 
 # which samples to submit
@@ -48,7 +48,7 @@ if [ "${SUBMIT}" == "1" ]; then
 fi
 
 ### job submision function needed below
-submitMany()
+submit()
 {
     eval sample="$1"
     eval command="$2"
@@ -160,49 +160,49 @@ MUONCRFILES=`/bin/ls $INPUTDIRDATA | grep SingleMuonRun2017 | tr '\n' ' '`
 if [ "$NOMINAL" == "1" ]; then 
 
  command="python $HBBSCRIPT -p hqq125  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "hqq125" "\${command}" "\${GGHBBFILES}"
+ submit "hqq125" "\${command}" "\${GGHBBFILES}"
 
  if [ "$TEST" == "1" ]; then return 1 ; fi
 
  
  command="python $HBBSCRIPT -p vbfhqq125  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "vbfhqq125" "\${command}" "\${VBFHBBFILES}"
+ submit "vbfhqq125" "\${command}" "\${VBFHBBFILES}"
  
  command="python $HBBSCRIPT -p zhqq125  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "zhqq125" "\${command}" "\${ZHFILES}"
+ submit "zhqq125" "\${command}" "\${ZHFILES}"
  
  command="python $HBBSCRIPT -p whqq125  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "whqq125" "\${command}" "\${WHFILES}"
+ submit "whqq125" "\${command}" "\${WHFILES}"
  
  command="python $HBBSCRIPT -p tthqq125  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "tthqq125" "\${command}" "\${TTHBBFILES}"
+ submit "tthqq125" "\${command}" "\${TTHBBFILES}"
  
  command="python $HBBSCRIPT -p vvqq  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "vvqq" "\${command}" "\${VVFILES}"
+ submit "vvqq" "\${command}" "\${VVFILES}"
  
  command="python $HBBSCRIPT -p zqq  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "zqq" "\${command}" "\${DYQQFILES}"
+ submit "zqq" "\${command}" "\${DYQQFILES}"
  
  command="python $HBBSCRIPT -p stqq  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "stqq" "\${command}" "\${STFILES}"
+ submit "stqq" "\${command}" "\${STFILES}"
  
  command="python $HBBSCRIPT -p wqq  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "wqq" "\${command}" "\${WQQFILES}"
+ submit "wqq" "\${command}" "\${WQQFILES}"
  
  command="python $HBBSCRIPT -p wlnu  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "wlnu" "\${command}" "\${WFILES}"
+ submit "wlnu" "\${command}" "\${WFILES}"
  
  command="python $HBBSCRIPT -p zll  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "zll" "\${command}" "\${DYLLFILES}"
+ submit "zll" "\${command}" "\${DYLLFILES}"
  
  command="python $HBBSCRIPT -p tqq  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "tqq" "\${command}" "\${TTFILES}"
+ submit "tqq" "\${command}" "\${TTFILES}"
  
  command="python $HBBSCRIPT -p qcd  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "qcd" "\${command}" "\${QCDFILES}"
+ submit "qcd" "\${command}" "\${QCDFILES}"
  
  command="python $HBBSCRIPT -p data_obs --data --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIRDATA} -f "
- submitMany "data_obs" "\${command}" "\${DATAFILES}"
+ submit "data_obs" "\${command}" "\${DATAFILES}"
  
 fi
 
@@ -213,46 +213,46 @@ fi
 if [ "$MUONCR" == "1" ]; then 
 
  command="python $HBBSCRIPT -p hqq125  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "hqq125_muonCR" "\${command}" "\${GGHBBFILES}"
+ submit "hqq125_muonCR" "\${command}" "\${GGHBBFILES}"
  
  command="python $HBBSCRIPT -p vbfhqq125  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "vbfhqq125_muonCR" "\${command}" "\${VBFHBBFILES}"
+ submit "vbfhqq125_muonCR" "\${command}" "\${VBFHBBFILES}"
  
  command="python $HBBSCRIPT -p zhqq125  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "zhqq125_muonCR" "\${command}" "\${ZHFILES}"
+ submit "zhqq125_muonCR" "\${command}" "\${ZHFILES}"
  
  command="python $HBBSCRIPT -p whqq125  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "whqq125_muonCR" "\${command}" "\${WHFILES}"
+ submit "whqq125_muonCR" "\${command}" "\${WHFILES}"
  
  command="python $HBBSCRIPT -p tthqq125  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "tthqq125_muonCR" "\${command}" "\${TTHBBFILES}"
+ submit "tthqq125_muonCR" "\${command}" "\${TTHBBFILES}"
  
  command="python $HBBSCRIPT -p vvqq  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "vvqq_muonCR" "\${command}" "\${VVFILES}"
+ submit "vvqq_muonCR" "\${command}" "\${VVFILES}"
  
  command="python $HBBSCRIPT -p zqq  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "zqq_muonCR" "\${command}" "\${DYQQFILES}"
+ submit "zqq_muonCR" "\${command}" "\${DYQQFILES}"
  
  command="python $HBBSCRIPT -p stqq  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "stqq_muonCR" "\${command}" "\${STFILES}"
+ submit "stqq_muonCR" "\${command}" "\${STFILES}"
  
  command="python $HBBSCRIPT -p wqq  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "wqq_muonCR" "\${command}" "\${WQQFILES}"
+ submit "wqq_muonCR" "\${command}" "\${WQQFILES}"
  
  command="python $HBBSCRIPT -p wlnu  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "wlnu_muonCR" "\${command}" "\${WFILES}"
+ submit "wlnu_muonCR" "\${command}" "\${WFILES}"
  
  command="python $HBBSCRIPT -p zll  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
- submitMany "zll_muonCR" "\${command}" "\${DYLLFILES}"
+ submit "zll_muonCR" "\${command}" "\${DYLLFILES}"
  
  command="python $HBBSCRIPT -p tqq  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "tqq_muonCR" "\${command}" "\${TTFILES}"
+ submit "tqq_muonCR" "\${command}" "\${TTFILES}"
  
  command="python $HBBSCRIPT -p qcd  --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
- submitMany "qcd_muonCR" "\${command}" "\${QCDFILES}"
+ submit "qcd_muonCR" "\${command}" "\${QCDFILES}"
  
  command="python $HBBSCRIPT -p data_obs --data --muonCR  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIRDATA} -f "
- submitMany "data_obs_muonCR" "\${command}" "\${MUONCRFILES}"
+ submit "data_obs_muonCR" "\${command}" "\${MUONCRFILES}"
 
 fi
 
@@ -262,40 +262,40 @@ fi
 if [ "$LOOSEBTAG" == "1" ]; then
  
 command="python $HBBSCRIPT -p hqq125   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
-submitMany "hqq125_looserWZ" "\${command}" "\${GGHBBFILES}"
+submit "hqq125_looserWZ" "\${command}" "\${GGHBBFILES}"
 
 command="python $HBBSCRIPT -p vbfhqq125   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "vbfhqq125_looserWZ" "\${command}" "\${VBFHBBFILES}"
+submit "vbfhqq125_looserWZ" "\${command}" "\${VBFHBBFILES}"
 
 command="python $HBBSCRIPT -p zhqq125   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "zhqq125_looserWZ" "\${command}" "\${ZHFILES}"
+submit "zhqq125_looserWZ" "\${command}" "\${ZHFILES}"
 
 command="python $HBBSCRIPT -p whqq125   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "whqq125_looserWZ" "\${command}" "\${WHFILES}"
+submit "whqq125_looserWZ" "\${command}" "\${WHFILES}"
 
 command="python $HBBSCRIPT -p tthqq125   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "tthqq125_looserWZ" "\${command}" "\${TTHBBFILES}"
+submit "tthqq125_looserWZ" "\${command}" "\${TTHBBFILES}"
 
 command="python $HBBSCRIPT -p vvqq   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
-submitMany "vvqq_looserWZ" "\${command}" "\${VVFILES}"
+submit "vvqq_looserWZ" "\${command}" "\${VVFILES}"
 
 command="python $HBBSCRIPT -p zqq   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "zqq_looserWZ" "\${command}" "\${DYQQFILES}"
+submit "zqq_looserWZ" "\${command}" "\${DYQQFILES}"
 
 command="python $HBBSCRIPT -p stqq   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
-submitMany "stqq_looserWZ" "\${command}" "\${STFILES}"
+submit "stqq_looserWZ" "\${command}" "\${STFILES}"
 
 command="python $HBBSCRIPT -p wqq   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "wqq_looserWZ" "\${command}" "\${WQQFILES}"
+submit "wqq_looserWZ" "\${command}" "\${WQQFILES}"
 
 command="python $HBBSCRIPT -p wlnu   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "wlnu_looserWZ" "\${command}" "\${WFILES}"
+submit "wlnu_looserWZ" "\${command}" "\${WFILES}"
 
 command="python $HBBSCRIPT -p zll   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR2016} -f "
-submitMany "zll_looserWZ" "\${command}" "\${DYLLFILES}"
+submit "zll_looserWZ" "\${command}" "\${DYLLFILES}"
 
 command="python $HBBSCRIPT -p tqq   --dbtag 0.8  --lumi $LUMI -o ./ -i root://cmseos.fnal.gov/${INPUTDIR} -f "
-submitMany "tqq_looserWZ" "\${command}" "\${TTFILES}"
+submit "tqq_looserWZ" "\${command}" "\${TTFILES}"
 
 fi
 
